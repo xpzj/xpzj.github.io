@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>xpzj</title>
+  
+  <subtitle>个人博客</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://xpzj.github.io/"/>
+  <updated>2020-03-21T05:53:33.887Z</updated>
+  <id>https://xpzj.github.io/</id>
+  
+  <author>
+    <name>zlp</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>dubbo-upgrade</title>
+    <link href="https://xpzj.github.io/2020/03/21/dubbo-upgrade/"/>
+    <id>https://xpzj.github.io/2020/03/21/dubbo-upgrade/</id>
+    <published>2020-03-21T05:39:30.000Z</published>
+    <updated>2020-03-21T05:53:33.887Z</updated>
+    
+    <content type="html"><![CDATA[<p>[记一次Dubbo2.7.5&amp;jdk8的升级历程]</p><p>Q.升级jdk1.8抛出异常：<strong><font color=red size=4 face="黑体">Invalid constant type: 15</font></strong></p><a id="more"></a><p>​    <code>java.io.IOException: invalid constant type: 15​    at javassist.bytecode.ConstPool.readOne(ConstPool.java:1090)​    at javassist.bytecode.ConstPool.read(ConstPool.java:1033)​    at javassist.bytecode.ConstPool.&lt;init&gt;(ConstPool.java:149)​    at javassist.bytecode.ClassFile.read(ClassFile.java:737)</code></p><p>A：Java8的最新更新版本update11导致了一些第三方工具不兼容问题。其中受影响的工具包括JavaEE开发工具JRebel、Java字节码操作库Javassist、依赖注入框架Google Guice、代码覆盖工具Jacoco等，此外，Groovy编程语言也被报告不兼容。目前甲骨文公司已经证实了这个bug。该bug似乎由Java 8u11中的JVM字节码验证子系统发生变化而导致的。</p><p>S:<br>    compile (‘com.alibaba:dubbo:2.5.3’){<br>        exclude group: ‘org.springframework’, module: ‘spring’<br>        exclude group: ‘org.javassist’, module: ‘javassist’<br>    }<br>    compile(“org.javassist:javassist:3.23.1-GA”)</p><p> <a href="">Java 8 升级导致第三方工具不兼容：https://blog.csdn.net/weixin_33728268/article/details/90528501</a></p><p>Q.dubbo升级2.7.5抛出异常：<strong><font color=red size=4 face="黑体">NoClassDefFoundError: AnnotatedBeanDefinitionRegistryUtils </font></strong></p><p><img src="https://i.loli.net/2020/03/20/dPtSkXvfM2FiBcx.png" alt="NoClassDefFound_RegistryUtils.png"></p><p>A.SpringContext：在基础IOC功能上提供扩展服务，此外还提供许多企业级服务的支持，有邮件服务、任务调度、JNDI定位，EJB集成、远程访问、缓存以及多种视图层框架的支持</p><p>S.<br>  compile group: ‘com.alibaba.spring’, name: ‘spring-context-support’, version: ‘1.0.6’</p><p>  <a href="">Spring的各个jar包的作用介绍：https://blog.csdn.net/mixika99/article/details/72723374<br>   解决冲突：https://www.jianshu.com/p/49569669a6a8</a></p><p>Q.dubbo升级2.7.5抛出异常：<strong><font color=red size=4 face="黑体">NoClassDefFoundError:  RetryPolicy</font></strong>异常信息如下：<br>      <img src="https://i.loli.net/2020/03/20/NHm7X6jWsyQlr5n.png" alt="https://i.loli.net/2020/03/20/NHm7X6jWsyQlr5n.png"><br>A. Dubbo 支持 zkclient 和 curator 两种 Zookeeper 客户端实现： 从 2.3.0 版本开始支持可选 curator 实现。Curator 是 Netflix 开源的一个 Zookeeper 客户端实现。</p><p>注意:在2.7.x的版本中已经移除了zkclient的实现,如果要使用zkclient客户端,需要自行拓展</p><p>S.<br> compile group: ‘org.apache.curator’, name: ‘curator-framework’, version: ‘2.12.0’<br> compile group: ‘org.apache.curator’, name: ‘curator-recipes’, version: ‘2.12.0’<br> 移除<br> ‘com.101tec:zkclient:0.7’,</p><p>  <a href="">dubbo用户文档 https://dubbo.apache.org/zh-cn/docs/user/references/registry/zookeeper.html</a></p><p>Q.dubbo升级2.7.5抛出异常：<strong><font color=red size=4 face="黑体">Nio/netty/channel/EventLoopGroup </font></strong>   异常信息如下：<br><img src="https://i.loli.net/2020/03/20/CztNUPp68g1BZay.png" alt="netty.png"><br>A. Dubbo 基于netty 缺少netty-all的jar包。</p><p>S.   compile group: ‘io.netty’, name: ‘netty-all’, version: ‘4.1.36.Final’</p><p>  <a href="">NoClassDefFoundError EventLoopGroup https://blog.csdn.net/q283614346/article/details/85042036</a></p><p>Q Dubbo启动时<strong><font color=red size=4 face="黑体">qos-server can not bind localhost:22222</font></strong>异常信息如下 </p><p><img src="https://i.loli.net/2020/03/20/CztNUPp68g1BZay.png" alt="netty.png"></p><p>S:<code>&lt;dubbo:application name=&quot;carrier-app&quot;&gt;        &lt;dubbo:parameter key=&quot;qos.enable&quot; value=&quot;fasle&quot;/&gt;        &lt;dubbo:parameter key=&quot;qos.accept.foreign.ip&quot; value=&quot;false&quot;/&gt;        &lt;dubbo:parameter key=&quot;qos.port&quot; value=&quot;33333&quot;/&gt;    &lt;/dubbo:application&gt;&gt;</code></p><p><a href="https://blog.csdn.net/u012988901/article/details/84503672" target="_blank" rel="noopener">https://blog.csdn.net/u012988901/article/details/84503672</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;[记一次Dubbo2.7.5&amp;amp;jdk8的升级历程]&lt;/p&gt;
+&lt;p&gt;Q.升级jdk1.8抛出异常：&lt;strong&gt;&lt;font color=red size=4 face=&quot;黑体&quot;&gt;Invalid constant type: 15&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="java" scheme="https://xpzj.github.io/categories/java/"/>
+    
+    
+      <category term="dubbo" scheme="https://xpzj.github.io/tags/dubbo/"/>
+    
+  </entry>
+  
+</feed>
