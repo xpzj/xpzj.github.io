@@ -113,7 +113,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/20/CztNUPp68g1BZay.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/20/CztNUPp68g1BZay.png">
 <meta property="article:published_time" content="2020-03-21T05:39:30.000Z">
-<meta property="article:modified_time" content="2020-03-21T06:18:54.929Z">
+<meta property="article:modified_time" content="2020-03-21T07:46:30.552Z">
 <meta property="article:author" content="zlp">
 <meta property="article:tag" content="dubbo">
 <meta name="twitter:card" content="summary">
@@ -414,7 +414,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  628
+                  608
                 </span>
               
 
@@ -430,7 +430,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  2
                 </span>
               
             </div>
@@ -462,19 +462,21 @@
 ​    at javassist.bytecode.ClassFile.read(ClassFile.java:737)</code></p>
 <p>A：Java8的最新更新版本update11导致了一些第三方工具不兼容问题。其中受影响的工具包括JavaEE开发工具JRebel、Java字节码操作库Javassist、依赖注入框架Google Guice、代码覆盖工具Jacoco等，此外，Groovy编程语言也被报告不兼容。目前甲骨文公司已经证实了这个bug。该bug似乎由Java 8u11中的JVM字节码验证子系统发生变化而导致的。</p>
 <p>S:<br>    compile (‘com.alibaba:dubbo:2.5.3’){<br>        exclude group: ‘org.springframework’, module: ‘spring’<br>        exclude group: ‘org.javassist’, module: ‘javassist’<br>    }<br>    compile(“org.javassist:javassist:3.23.1-GA”)</p>
-<p> <a href="">Java 8 升级导致第三方工具不兼容：https://blog.csdn.net/weixin_33728268/article/details/90528501</a></p>
+<p><a href="https://blog.csdn.net/weixin_33728268/article/details/90528501" target="_blank" rel="noopener"><strong><font color=blue size=4 face="黑体">传送门</font></strong>   https://blog.csdn.net/weixin_33728268/article/details/90528501</a></p>
 <p>Q.dubbo升级2.7.5抛出异常：<strong><font color=red size=4 face="黑体">NoClassDefFoundError: AnnotatedBeanDefinitionRegistryUtils </font></strong></p>
 <p><img src="https://i.loli.net/2020/03/20/dPtSkXvfM2FiBcx.png" alt="NoClassDefFound_RegistryUtils.png"></p>
 <p>A.SpringContext：在基础IOC功能上提供扩展服务，此外还提供许多企业级服务的支持，有邮件服务、任务调度、JNDI定位，EJB集成、远程访问、缓存以及多种视图层框架的支持</p>
 <p>S.<br>  compile group: ‘com.alibaba.spring’, name: ‘spring-context-support’, version: ‘1.0.6’</p>
-<p>  <a href="">Spring的各个jar包的作用介绍：https://blog.csdn.net/mixika99/article/details/72723374<br>   解决冲突：https://www.jianshu.com/p/49569669a6a8</a></p>
+<p>[<strong><font color=blue size=4 face="黑体">传送门</font></strong> ]</p>
+<p>(<a href="https://blog.csdn.net/mixika99/article/details/72723374" target="_blank" rel="noopener">https://blog.csdn.net/mixika99/article/details/72723374</a>)</p>
+<p>(<a href="https://www.jianshu.com/p/49569669a6a8" target="_blank" rel="noopener">https://www.jianshu.com/p/49569669a6a8</a>)</p>
 <p>Q.dubbo升级2.7.5抛出异常：<strong><font color=red size=4 face="黑体">NoClassDefFoundError:  RetryPolicy</font></strong>异常信息如下：<br>      <img src="https://i.loli.net/2020/03/20/NHm7X6jWsyQlr5n.png" alt="https://i.loli.net/2020/03/20/NHm7X6jWsyQlr5n.png"><br>A. Dubbo 支持 zkclient 和 curator 两种 Zookeeper 客户端实现： 从 2.3.0 版本开始支持可选 curator 实现。Curator 是 Netflix 开源的一个 Zookeeper 客户端实现。</p>
 <p>注意:在2.7.x的版本中已经移除了zkclient的实现,如果要使用zkclient客户端,需要自行拓展</p>
-<p>S.<br> compile group: ‘org.apache.curator’, name: ‘curator-framework’, version: ‘2.12.0’<br> compile group: ‘org.apache.curator’, name: ‘curator-recipes’, version: ‘2.12.0’<br> 移除<br> ‘com.101tec:zkclient:0.7’,</p>
-<p>  <a href="">dubbo用户文档 https://dubbo.apache.org/zh-cn/docs/user/references/registry/zookeeper.html</a></p>
+<p>S.<br> compile group: ‘org.apache.curator’, name: ‘curator-framework’, version: ‘2.12.0’<br> compile group: ‘org.apache.curator’, name: ‘curator-recipes’, version: ‘2.12.0’<br> 移除<br> ‘com.101tec:zkclient:0.7’</p>
+<p><a href="https://dubbo.apache.org/zh-cn/docs/user/references/registry/zookeeper.html" target="_blank" rel="noopener"><strong><font color=blue size=4 face="黑体">传送门</font></strong>   https://dubbo.apache.org/zh-cn/docs/user/references/registry/zookeeper.html</a></p>
 <p>Q.dubbo升级2.7.5抛出异常：<strong><font color=red size=4 face="黑体">Nio/netty/channel/EventLoopGroup </font></strong>   异常信息如下：<br><img src="https://i.loli.net/2020/03/20/CztNUPp68g1BZay.png" alt="netty.png"><br>A. Dubbo 基于netty 缺少netty-all的jar包。</p>
 <p>S.   compile group: ‘io.netty’, name: ‘netty-all’, version: ‘4.1.36.Final’</p>
-<p>  <a href="">NoClassDefFoundError EventLoopGroup https://blog.csdn.net/q283614346/article/details/85042036</a></p>
+<p><a href="https://blog.csdn.net/q283614346/article/details/85042036" target="_blank" rel="noopener"><strong><font color=blue size=4 face="黑体">传送门</font></strong>  https://blog.csdn.net/q283614346/article/details/85042036</a></p>
 <p>Q Dubbo启动时<strong><font color=red size=4 face="黑体">qos-server can not bind localhost:22222</font></strong>异常信息如下 </p>
 <p><img src="https://i.loli.net/2020/03/20/CztNUPp68g1BZay.png" alt="netty.png"></p>
 <p>S:<code>&lt;dubbo:application name=&quot;carrier-app&quot;&gt;
@@ -482,7 +484,7 @@
         &lt;dubbo:parameter key=&quot;qos.accept.foreign.ip&quot; value=&quot;false&quot;/&gt;
         &lt;dubbo:parameter key=&quot;qos.port&quot; value=&quot;33333&quot;/&gt;
     &lt;/dubbo:application&gt;&gt;</code></p>
-<p><a href="https://blog.csdn.net/u012988901/article/details/84503672" target="_blank" rel="noopener">https://blog.csdn.net/u012988901/article/details/84503672</a></p>
+<p><a href="https://blog.csdn.net/u012988901/article/details/84503672" target="_blank" rel="noopener"><strong><font color=blue size=4 face="黑体">传送门</font></strong>  https://blog.csdn.net/u012988901/article/details/84503672</a></p>
 
       
     </div>
@@ -510,7 +512,7 @@
   <p><span>本文标题:</span><a href="/2020/03/21/dubbo-upgrade/">dubbo-upgrade</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 zlp 的个人博客">zlp</a></p>
   <p><span>发布时间:</span>2020年03月21日 - 13:03</p>
-  <p><span>最后更新:</span>2020年03月21日 - 14:03</p>
+  <p><span>最后更新:</span>2020年03月21日 - 15:03</p>
   <p><span>原始链接:</span><a href="/2020/03/21/dubbo-upgrade/" title="dubbo-upgrade">https://xpzj.github.io/2020/03/21/dubbo-upgrade/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="https://xpzj.github.io/2020/03/21/dubbo-upgrade/"  aria-label="复制成功！"></i></span>
   </p>
@@ -764,7 +766,7 @@ var jiathis_config={
   <span class="author" itemprop="copyrightHolder">zlp</span>
   <div class="theme-info">
 	  <div class="powered-by"></div>
-	  <span class="post-count">博客全站共628字</span>
+	  <span class="post-count">博客全站共608字</span>
   </div>
   <div class="powered-by">
 	<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
@@ -780,7 +782,7 @@ var jiathis_config={
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">628</span>
+    <span title="Site words total count">608</span>
   
  -->
 </div>
