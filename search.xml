@@ -32,7 +32,7 @@
 <p>Q Dubbo启动时<strong><font color=red size=4 face="黑体">qos-server can not bind localhost:22222</font></strong>异常信息如下 </p>
 <p><img src="https://i.loli.net/2020/03/20/CztNUPp68g1BZay.png" alt="netty.png"></p>
 <p>S:<code>&lt;dubbo:application name=&quot;carrier-app&quot;&gt;
-        &lt;dubbo:parameter key=&quot;qos.enable&quot; value=&quot;fasle&quot;/&gt;
+        &lt;dubbo:parameter key=&quot;qos.enable&quot; value=&quot;false&quot;/&gt;
         &lt;dubbo:parameter key=&quot;qos.accept.foreign.ip&quot; value=&quot;false&quot;/&gt;
         &lt;dubbo:parameter key=&quot;qos.port&quot; value=&quot;33333&quot;/&gt;
     &lt;/dubbo:application&gt;&gt;</code></p>
